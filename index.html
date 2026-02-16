@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Anniversary Najma</title>
+    <!-- Tailwind for instant responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #050505;
+            --gold: #FFD700;
+            --purple: #a855f7;
+        }
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Fonts */
+        .cinzel { font-family: 'Cinzel', serif; }
+        .vibes { font-family: 'Great Vibes', cursive; }
+        
+        /* Background Canvas */
+        #star-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
+        }
+
+        /* Lock Screen Overlay */
+        #lock-screen {
+            position: fixed; inset: 0; z-index: 50;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: transform 1.2s cubic-bezier(0.87, 0, 0.13, 1);
+            padding: 20px;
+        }
+
+        /* The Golden Button */
+        .envelope-btn {
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 1rem 3rem;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+        }
+        .envelope-btn:hover {
+            background: rgba(255, 215, 0, 0.15);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* Main App Container */
+        #app {
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            display: none; /* Hidden until unlocked */
+        }
+
+        /* Glass Cards */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        
+        .glow-text { text-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
+
+        /* Slideshow Styles */
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. DYNAMIC BACKGROUND -->
+    <canvas id="star-canvas"></canvas>
+
+    <!-- 2. LOCK SCREEN (Entry Point) -->
+    <div id="lock-screen">
+        <div class="text-center animate-pulse mb-8">
+            <span class="text-xs text-gray-500 tracking-[0.4em] uppercase">Anniversary Access</span>
+        </div>
+        <button class="envelope-btn rounded-full text-sm md:text-lg" onclick="unlockExperience()">
+            Open for Najma
+        </button>
+        <div class="mt-6 text-xs text-gray-600 font-mono">
+            ID: AYANFE-ANNIV
+        </div>
+    </div>
+
+    <!-- 3. MAIN EXPERIENCE -->
+    <main id="app" class="w-full relative">
+        
+        <!-- SECTION 1: HERO -->
+        <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center">
+            <h1 class="text-5xl md:text-8xl cinzel font-bold text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-500 mb-4 leading-tight">
+                Najma
+            </h1>
+            <p class="text-purple-400 vibes text-3xl md:text-5xl glow-text mb-12">My Forever</p>
+            
+            <div class="absolute bottom-10 animate-bounce text-gray-500 text-sm tracking-widest uppercase">
+                Celebrate Us
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE SOUNDTRACK (Spotify) -->
+        <section class="py-20 px-4 md:px-0">
+            <div class="max-w-md mx-auto glass-panel p-6 md:p-10 text-center float-anim">
+                <div class="text-gold cinzel text-xl mb-6">Our Song</div>
+                
+                <!-- SPOTIFY EMBED -->
+                <!-- Replace the src below with your playlist/song -->
+                <div class="w-full shadow-2xl rounded-xl overflow-hidden">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2Lhdl74nwwVGOE2Gv35QuK?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                
+                <p class="mt-6 text-xs text-gray-400 uppercase tracking-widest">Played on Spotify</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: REASON GENERATOR -->
+        <section class="py-20 px-4">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="cinzel text-3xl md:text-4xl mb-10 text-white">Why I Choose You</h2>
+                
+                <div id="reason-box" class="min-h-[120px] flex items-center justify-center">
+                    <p id="reason-text" class="text-xl md:text-3xl text-pink-300 font-light italic leading-relaxed transition-opacity duration-500">
+                        "Tap below to see why I'm still here..."
+                    </p>
+                </div>
+
+                <button onclick="nextReason()" class="mt-8 px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold tracking-wider shadow-lg transform active:scale-95 transition-all">
+                    Remind Me
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 4: THE VISION BOARD (SLIDESHOW) -->
+        <section class="py-20 px-4">
+            <div class="max-w-4xl mx-auto glass-panel p-6 md:p-12 text-center relative">
+                 <h2 class="cinzel text-2xl md:text-3xl mb-8 text-gold">Our Journey So Far</h2>
+                 
+                 <!-- Slideshow Container -->
+                 <div class="relative w-full h-64 md:h-96 rounded-xl overflow-hidden shadow-2xl bg-black/40">
+                     
+                     <!-- Images (Add your image URLs in the JS below) -->
+                     <div id="gallery-container" class="w-full h-full relative">
+                         <!-- JS will inject images here -->
+                     </div>
+
+                     <!-- Navigation Arrows -->
+                     <button onclick="changeSlide(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-purple-600 transition">
+                         &#10094;
+                     </button>
+                     <button onclick="changeSlide(1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-purple-600 transition">
+                         &#10095;
+                     </button>
+                 </div>
+                 
+                 <p id="slide-caption" class="mt-6 text-sm text-gray-300 italic tracking-wider h-6">
+                     <!-- Caption appears here -->
+                 </p>
+            </div>
+        </section>
+
+        <!-- SECTION 5: COUNTDOWN -->
+        <section class="py-20 px-4 bg-gradient-to-b from-transparent to-black/50">
+            <div class="max-w-4xl mx-auto glass-panel p-8 md:p-12 text-center">
+                <h2 class="cinzel text-2xl md:text-3xl mb-8 text-gold">Until We Meet</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
+                    <div class="flex flex-col p-4 bg-white/5 rounded-lg">
+                        <span id="d" class="text-3xl md:text-5xl font-bold text-white">0</span>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mt-2">Days</span>
+                    </div>
+                    <div class="flex flex-col p-4 bg-white/5 rounded-lg">
+                        <span id="h" class="text-3xl md:text-5xl font-bold text-white">0</span>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mt-2">Hours</span>
+                    </div>
+                    <div class="flex flex-col p-4 bg-white/5 rounded-lg">
+                        <span id="m" class="text-3xl md:text-5xl font-bold text-white">0</span>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mt-2">Mins</span>
+                    </div>
+                    <div class="flex flex-col p-4 bg-white/5 rounded-lg">
+                        <span id="s" class="text-3xl md:text-5xl font-bold text-white">0</span>
+                        <span class="text-xs uppercase tracking-widest text-gray-400 mt-2">Secs</span>
+                    </div>
+                </div>
+                
+                <p class="mt-8 text-sm text-gray-400 italic">"Another year closer to closing the gap."</p>
+            </div>
+        </section>
+
+        <!-- SECTION 6: THE LETTER -->
+        <section class="py-24 px-6 md:px-0 max-w-2xl mx-auto text-center">
+            <div class="mb-6 text-6xl text-purple-500 opacity-50">"</div>
+            <p class="text-lg md:text-xl text-gray-200 leading-loose font-light">
+                Ayoka, <br><br>
+                Happy Anniversary. <br><br>
+                Another 365 days of being my favorite person. Another year of late-night calls, shared playlists, and dreaming of the future.
+                <br><br>
+                They say long distance is hard, and it is. But loving you is the easiest thing I've ever done. Thank you for being my peace and my excitement all at once.
+                <br><br>
+                Here is to us, and to the day I finally get to say this to you in person.
+            </p>
+            <div class="mt-12 text-gold cinzel text-xl tracking-widest font-bold">
+                HAPPY ANNIVERSARY
+            </div>
+        </section>
+
+        <footer class="py-10 text-center text-xs text-gray-700 uppercase tracking-widest">
+            Ayanfe & Najma
+        </footer>
+
+    </main>
+
+    <script>
+        // 1. RESPONSIVE STARFIELD
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, stars = [];
+
+        function initStars() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            stars = [];
+            const starCount = width < 768 ? 100 : 300; 
+            
+            for(let i=0; i<starCount; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * (width < 768 ? 1.5 : 2),
+                    speed: Math.random() * 0.5
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.fillStyle = "#050505";
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = "#ffffff";
+            
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+                star.y -= star.speed;
+                if(star.y < 0) star.y = height;
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', initStars);
+        initStars();
+        animateStars();
+
+        // 2. UNLOCK LOGIC
+        function unlockExperience() {
+            const lock = document.getElementById('lock-screen');
+            const app = document.getElementById('app');
+            lock.style.transform = 'translateY(-100%)';
+            app.style.display = 'block';
+            setTimeout(() => {
+                app.style.opacity = '1';
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#FFD700', '#a855f7', '#ffffff']
+                });
+            }, 300);
+        }
+
+        // 3. REASON GENERATOR
+        const reasons = [
+            "Because 365 days wasn't enough.",
+            "Because you are still the best part of my day.",
+            "Because your voice still gives me butterflies.",
+            "Because we are building something real.",
+            "Because you challenge me to be better.",
+            "Because distance means so little when you mean so much.",
+            "Because I choose you, every single day.",
+            "Because you are my Najma.",
+            "Because of our future together.",
+            "Because I love you more than last year."
+        ];
+
+        function nextReason() {
+            const textEl = document.getElementById('reason-text');
+            textEl.style.opacity = '0';
+            setTimeout(() => {
+                const random = reasons[Math.floor(Math.random() * reasons.length)];
+                textEl.innerText = `"${random}"`;
+                textEl.style.opacity = '1';
+            }, 500);
+        }
+
+        // 4. SMART SLIDESHOW
+        const galleryImages = [
+            { url: "https://placehold.co/800x600/1a1a1a/FFD700?text=Our+First+Call", caption: "Where it all began." },
+            { url: "https://placehold.co/800x600/1a1a1a/FFD700?text=Silly+Moments", caption: "You always make me laugh." },
+            { url: "https://placehold.co/800x600/1a1a1a/FFD700?text=Future+Plans", caption: "I can't wait for this to be real." }
+        ];
+
+        let currentSlideIndex = 0;
+        const galleryContainer = document.getElementById('gallery-container');
+        const captionText = document.getElementById('slide-caption');
+
+        function initGallery() {
+            galleryContainer.innerHTML = '';
+            galleryImages.forEach((img, index) => {
+                const imageElement = document.createElement('img');
+                imageElement.src = img.url;
+                imageElement.className = `slide w-full h-full object-cover ${index === 0 ? 'active' : ''}`;
+                galleryContainer.appendChild(imageElement);
+            });
+            updateCaption();
+        }
+
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.slide');
+            slides[currentSlideIndex].classList.remove('active');
+            
+            currentSlideIndex = (currentSlideIndex + direction + slides.length) % slides.length;
+            
+            slides[currentSlideIndex].classList.add('active');
+            updateCaption();
+        }
+
+        function updateCaption() {
+            captionText.style.opacity = 0;
+            setTimeout(() => {
+                captionText.innerText = galleryImages[currentSlideIndex].caption;
+                captionText.style.opacity = 1;
+            }, 200);
+        }
+
+        initGallery();
+
+        // 5. COUNTDOWN
+        // IMPORTANT: Set this to the date you plan to meet, or next anniversary
+        const meetDate = new Date("2026-12-31").getTime(); 
+
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = meetDate - now;
+
+            if (diff > 0) {
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('d').innerText = d;
+                document.getElementById('h').innerText = h;
+                document.getElementById('m').innerText = m;
+                document.getElementById('s').innerText = s;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
